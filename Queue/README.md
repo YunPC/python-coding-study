@@ -1,7 +1,0 @@
-# 큐
-
-225_Implement_Stack_Using_Queue
-
-232_Implement_Queue_Using_Stacks
-
-622_Design_Circular_Queue
