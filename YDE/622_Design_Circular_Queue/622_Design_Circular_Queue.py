@@ -29,4 +29,10 @@ class MyCircularQueue:
         if self.front == self.rear:
             self.full = False
         
-        return True       
+        return True
+    
+    def Front(self) -> int:
+        if self.isEmpty():
+            return -1
+        
+        return self.q[self.front]
