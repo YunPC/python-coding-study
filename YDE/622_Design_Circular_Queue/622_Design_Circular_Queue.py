@@ -36,3 +36,9 @@ class MyCircularQueue:
             return -1
         
         return self.q[self.front]
+
+    def Rear(self) -> int:
+        if self.isEmpty():
+            return -1
+        
+        return self.q[(self.rear-1)%len(self.q)]
