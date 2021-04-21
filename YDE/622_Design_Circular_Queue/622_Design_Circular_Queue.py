@@ -45,3 +45,6 @@ class MyCircularQueue:
 
     def isEmpty(self) -> bool:
         return self.front == self.rear and not self.full
+
+    def isFull(self) -> bool:
+        return self.full
