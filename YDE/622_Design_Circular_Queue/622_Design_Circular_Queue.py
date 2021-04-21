@@ -7,4 +7,14 @@ class MyCircularQueue:
         self.front = 0
         self.rear = 0
     
-    
+    def enQueue(self, value: int) -> bool:
+        if self.front == self.rear and self.full:
+            return False
+        
+        self.q[self.rear] = value
+        self.rear = (self.rear+1) % len(self.q)
+        
+        if self.rear == self.front:
+            self.full = True
+            
+        return True
