@@ -23,3 +23,14 @@ def solution1(head):
         start = start.next
         
     return list_node.next
+
+# Runtime: 28ms, Memory Usage: 20.5MB
+def solution2(head):
+    def reverse(node, prev=None):
+        if not node:
+            return prev
+
+        next, node.next = node.next, prev
+        return reverse(next, node)
+
+    return reverse(head)
