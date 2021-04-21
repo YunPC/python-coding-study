@@ -26,8 +26,7 @@ class MyCircularQueue:
         value = self.q[self.front]
         self.front = (self.front+1) % len(self.q)
         
-        if self.front == self.rear:
-            self.full = False
+        self.full = False
         
         return True
     
