@@ -52,8 +52,46 @@ class Solution:
 
 ### 코드
 
+```python
+class Solution:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        answer = 0
+        def recur(node):
+            nonlocal answer
+
+            if not node:
+                return 0
+
+            left = recur(node.left)
+            right = recur(node.right)
+
+            answer = max(answer, left + right)
+            return max(left, right) + 1
+
+        recur(root)
+        return answer
+
+```
+
 ### 풀이
 
 #### 1. 왼쪽 오른쪽의 최대 길이를 더해주기
 
 - node.left 의 최대 길이와 node.right 의 최대길이를 구해서 더해준다. -> wrong answer 발생.
+
+#### 2. 노드의 끝에서 상태값 더하기
+
+- 맨 끝(dfs 를 통해 찾는다) 에서 부터, 루트까지의 거리를 찾아나가면서 더한다.
+- 먼저 왼쪽 자식 노드의 값들을 찾아 루트까지의 최대 거리를 구해준다.
+- 이후 오른쪽 자식 노드의 값들을 찾아 루트까지의 최대 거리를 구해준다.
+- 두 값을 더해준다.
+- 풀이시에 신기했던 점은, 책에 나와있는 코드는 answer 을 -1 로 두고 left + right + 2 를 해준다.
+
+```python
+    if not node:
+        return -1
+
+    answer = max(answer, left + right + 2)
+```
+
+- 대신 return 0 과 + 2 를 빼주면 놀랍게도 48ms 였던 코드가 36ms 로 바뀐다. 아마 더하기 연산이 눈에 띄게 줄어들었던 점이 속도를 높일 수 있었던 것 같다. 이전에는 다른 코드보다 34% 빨랐지만 이후에 96% 까지 올렸다.
