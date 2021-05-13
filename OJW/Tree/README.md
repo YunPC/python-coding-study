@@ -99,3 +99,76 @@ class Solution:
 ```
 
 - 대신 return 0 과 + 2 를 빼주면 놀랍게도 48ms 였던 코드가 36ms 로 바뀐다. 아마 더하기 연산이 눈에 띄게 줄어들었던 점이 속도를 높일 수 있었던 것 같다. 이전에는 다른 코드보다 34% 빨랐지만 이후에 96% 까지 올렸다.
+
+## 3. 687. Longest Univalue Path
+
+### 문제 설명
+
+- 이진 트리의 노드간 최대 지름 길이를 찾는 문제. 2번 문제와 다른점은 노드값이 같은 경우에만 지름 길이를 계산하는 문제이다.
+
+### 코드
+
+```python
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+
+        if root is None:
+            return 0
+
+        answer = -1
+
+        def recur(node, depth):
+            nonlocal answer
+
+            if node is None:
+                answer = max(answer, depth)
+                return
+
+            recur(node.left, depth + 1)
+            recur(node.right, depth + 1)
+
+        recur(root, 0)
+
+        return answer
+
+```
+
+### 풀이
+
+#### 1. 상태값을 이용하기
+- 먼저 dfs 를 통해 왼쪽 맨 마지막 노드부터 시작한다. 만약 부모 노드의 value 값과 같다면 현재 노드의 상태값을 1 더해 준다. 이후 부모 노드로 돌아가면서 왼쪽과 오른쪽 노드의 상태값을 더해주고 최대값을 찾아준다.
+
+## 4. 1038. Binary Search Tree to Greater Sum Tree
+
+
+### 문제 설명
+
+- BST 에서 노드보다 큰 값들이 있다면 전부 더해준 새로운 트리를 만드는 문제이다.
+
+### 코드
+
+```python
+class Solution:
+    def bstToGst(self, root: TreeNode) -> TreeNode:
+        value = 0
+
+        def recur(node):
+            nonlocal value
+
+            if node is None:
+                return
+
+            recur(node.right)
+            node.val += value
+            value = node.val
+            recur(node.left)
+
+        recur(root)
+        return root
+
+```
+
+### 풀이
+
+#### 1. 오른쪽 자식부터 순회
+- 가장 오른쪽 자식부터 순회하고 (BST 이기 때문에 오른쪽 값이 무조건 크다.) 값을 더해가면서 노드의 val 값을 갱신한다. 따로 recur 를 만들어 주는것 보다, 원래 있는 코드를 재귀 함수처럼 사용하는것이 런타임이 빠르다.
