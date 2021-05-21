@@ -27,3 +27,20 @@ def solution(N):
 
     return count_node(root)
 ```
+
+그런데 이렇게 노드를 사용하지 않고 점화식을 통해 풀 수도 있다고 한다.
+
+```python
+def solution(N):
+    amba = [2] * N
+    ans = 1 + sum(amba[:2])
+
+    for i in range(2, N):
+        amba[i] = amba[i-1] + amba[i-2]
+        ans += amba[i]
+
+    return ans
+```
+
+1 3 5 9 15 25 .. 순으로 아메바의 갯수가 분열되는 걸 보고 두영님께서 점화식을 통해 풀이하였다..
+대단하시다 증맬..
