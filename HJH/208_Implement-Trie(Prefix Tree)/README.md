@@ -1,4 +1,4 @@
-# 풍이
+# 풀이
 
 ## [208_Implement-Trie(Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) - 허재혁
 
