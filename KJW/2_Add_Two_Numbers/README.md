@@ -77,9 +77,40 @@ class Solution:
         return s_node
 ```
 
-형변환을 모두 나눗셈과 나머지연산으로 변환했지만.. 성능은 그닥 차이나지 않았다
+### 교재 풀이 (전가산기)
+
+형변환을 모두 나눗셈과 나머지연산으로 변환했지만.. 성능은 그닥 차이나지 않았다. 마지막으로 교재에 있는 전가산기 풀이를 읽어봤는데 이게 가장 좋은 해결방법이었던 것 같다. 나는 기본적으로 노드를 다 숫자로 변환한 뒤 계산을 하고 다시 노드로 만드는 방법을 생각했는데 노드의 특성을 활용하면서 덧셈과 함께 자리올림도 함께 처리할 수 있었다. 코드는 아래와 같다
+
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        root = head = ListNode(0)
+
+        carry = 0
+        while l1 or l2 or carry:
+            sum = 0
+
+            if l1:
+                sum += l1.val
+                l1 = l1.next
+            if l2:
+                sum += l2.val
+                l2 = l2.next
+
+            carry, val = divmod(sum+carry, 10)
+            head.next = ListNode(val)
+            head = head.next
+        return root.next
+```
+
+코드가 훨씬 깔끔하기도 하고 시간도 훨씬 빠르다 노드의 구조를 그대로 활용해서 풀이한 것이 인상적이었다.. 나는 멀었다..
 
 - 형변환 : `76ms`
 - 나눗셈 : `72ms`
-
-아무래도 순회를 더 빠르게 하는 방법을 찾아봐야 했는가보다. 아무튼 해결.
+- 전가산기 : `64ms`
